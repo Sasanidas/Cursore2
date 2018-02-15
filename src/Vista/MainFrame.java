@@ -192,7 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jlhelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/loader.gif"))); // NOI18N
+        jlhelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/img/loader.gif"))); // NOI18N
 
         Iniciar1.setFont(new java.awt.Font("Kristen ITC", 1, 18)); // NOI18N
         Iniciar1.setText("Iniciar");
@@ -291,7 +291,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Kristen ITC", 1, 48)); // NOI18N
         jLabel2.setText("v2.1");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/catpawn.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/img/catpawn.png"))); // NOI18N
 
         javax.swing.GroupLayout jpEncabezadoLayout = new javax.swing.GroupLayout(jpEncabezado);
         jpEncabezado.setLayout(jpEncabezadoLayout);
@@ -640,7 +640,7 @@ public class MainFrame extends javax.swing.JFrame {
                             MouseControl.getConjuntoClicks().add(cli);
                             anadirAlaTabla(cli);
                             //Cambiamos el icono a loader otra vez, el thread es para que el ok se quede 2 segundos
-                            jlhelp.setIcon(new ImageIcon(getClass().getResource("/Vista/ok.png")));
+                            jlhelp.setIcon(new ImageIcon(getClass().getResource("/Vista/img/ok.png")));
                             Thread d = new Thread(new Runnable() {
                                 @Override
                                 public void run() {

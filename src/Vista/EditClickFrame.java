@@ -141,7 +141,7 @@ public class EditClickFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/catpawn.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/img/catpawn.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Kristen ITC", 1, 48)); // NOI18N
         jLabel3.setText("Cursore");

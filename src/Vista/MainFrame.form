@@ -380,7 +380,7 @@
         <Component class="javax.swing.JLabel" name="jlhelp">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Vista/loader.gif"/>
+              <Image iconType="3" name="/Vista/img/loader.gif"/>
             </Property>
           </Properties>
         </Component>
@@ -452,7 +452,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Vista/catpawn.png"/>
+              <Image iconType="3" name="/Vista/img/catpawn.png"/>
             </Property>
           </Properties>
         </Component>
