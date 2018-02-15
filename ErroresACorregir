@@ -1,0 +1,6 @@
+- Asegurarnos de los errores al cerrar cada una de las ventanas, que saltan excepciones.
+
+- Al editar el click, si le asignamos en una zona, no podemos cambiarlo a "normal"
+(se cambia el alias y no el tipo)
+
+

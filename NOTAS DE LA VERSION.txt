@@ -1,0 +1,15 @@
+-Se ha cambiado por completo la interfaz grafica.
+-Se ha optimizado el codigo y reducido el numero de ventana.
+-Se ha añadido la funcion de click en una zona aleatoria.
+-Se ha cambiado el texto que mostraba los clicks por una tabla que enseña mejor las caracteristicas de cada click.
+-Se ha optimizado de manera sustancial la edición de clicks.
+-Se ha añadido una persistencia de datos mediante una base de datos orientada a objetos.
+
+
+-------------------------------------
+Apuntes:
+
+
+-Asegurarse del rango aleatorio editar
+
+-Verificar cuando el click es aleatorio en una zona en editar.
