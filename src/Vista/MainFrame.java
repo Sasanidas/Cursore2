@@ -654,7 +654,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 }
                             });
                             d.run();
-                            jlhelp.setIcon(new ImageIcon(getClass().getResource("/Vista/loader.gif")));
+                            jlhelp.setIcon(new ImageIcon(getClass().getResource("/Vista/img/loader.gif")));
                             jlhelp.setVisible(false);
                             andirPosicion.setEnabled(true);
                         }
