@@ -13,8 +13,10 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,13 +51,11 @@ public class MouseControl {
                 z.setRandom(true);
                 z.setRandomuno(Integer.parseInt(numeroUno) * 1000);
                 z.setRandomdos(Integer.parseInt(numeroDos) * 1000);
+            } else if (!tiempo.isEmpty()) {
+                int tiempoEnte = Integer.parseInt(tiempo) * 1000;
+                z.setDuracionClick(tiempoEnte);
             } else {
-                if (!tiempo.isEmpty()) {
-                    int tiempoEnte = Integer.parseInt(tiempo) * 1000;
-                    z.setDuracionClick(tiempoEnte);
-                } else {
-                    z.setDuracionClick(1600);
-                }
+                z.setDuracionClick(1600);
             }
             if (doble) {
                 z.setDoble(true);
@@ -78,6 +78,7 @@ public class MouseControl {
             throw new MyError("Error con posicionar el raton");
         }
     }
+
     public static boolean aliasRepetido(String alias) {
         for (int i = 0; i < MouseControl.getConjuntoClicks().size(); i++) {
             if (MouseControl.getConjuntoClicks().get(i).getAlias().equalsIgnoreCase(alias)) {
@@ -123,12 +124,10 @@ public class MouseControl {
                 for (int i = 0; i < e.size(); i++) {
                     if (e.get(i).isRandom()) {
                         copiaThread.sleep(devolverAleatorio(e.get(i).getRandomuno(), e.get(i).getRandomdos()));
+                    } else if (e.get(i).getDuracionClick() != 1600) {
+                        copiaThread.sleep(e.get(i).getDuracionClick());
                     } else {
-                        if (e.get(i).getDuracionClick() != 1600) {
-                            copiaThread.sleep(e.get(i).getDuracionClick());
-                        } else {
-                            copiaThread.sleep(1600);
-                        }
+                        copiaThread.sleep(1600);
                     }
                     if (e.get(i).isDoble()) {
                         if (e.get(i).isEsCuadrado()) {
@@ -150,18 +149,15 @@ public class MouseControl {
                             z.mouseRelease(InputEvent.BUTTON1_MASK);
                         }
 
-                    } else {
-                        if (e.get(i).isEsCuadrado()) {
-                            cliclarArea(e.get(i), z);
+                    } else if (e.get(i).isEsCuadrado()) {
+                        cliclarArea(e.get(i), z);
 //                            z.mouseMove((int) h.getX(), (int) h.getY());
-                            z.mousePress(InputEvent.BUTTON1_MASK);
-                            z.mouseRelease(InputEvent.BUTTON1_MASK);
-                        } else {
-                            z.mouseMove((int) e.get(i).getX(), (int) e.get(i).getY());
-                            z.mousePress(InputEvent.BUTTON1_MASK);
-                            z.mouseRelease(InputEvent.BUTTON1_MASK);
-                        }
-
+                        z.mousePress(InputEvent.BUTTON1_MASK);
+                        z.mouseRelease(InputEvent.BUTTON1_MASK);
+                    } else {
+                        z.mouseMove((int) e.get(i).getX(), (int) e.get(i).getY());
+                        z.mousePress(InputEvent.BUTTON1_MASK);
+                        z.mouseRelease(InputEvent.BUTTON1_MASK);
                     }
                     if (e.get(i).isSihayTexto()) {
                         escribir(e.get(i).getTeclasaEscribir());
@@ -186,7 +182,6 @@ public class MouseControl {
         do {
             numeroGenerado = (int) ((int) Math.round(Math.random() * (numero_multi)));
             if (numeroGenerado > numerouno & numeroGenerado < numerodos) {
-                System.out.println(numeroGenerado);
                 return numeroGenerado;
             }
         } while (true);
@@ -225,7 +220,7 @@ public class MouseControl {
         int puntoy = devolverAleatorio((int) z.getCoordenadas().getY(), z.getCoordenadasClick()[1]);
         h.mouseMove(puntox, puntoy);
     }
-    
+
     public static void actualizarTabla(JTable g) {
         DefaultTableModel l = (DefaultTableModel) g.getModel();
         l.setNumRows(0);
@@ -251,7 +246,6 @@ public class MouseControl {
             }
             if (e.isRandom()) {
                 if (e.isEsCuadrado()) {
-
                     DefaultTableModel z = (DefaultTableModel) g.getModel();
                     String[] stri = {(e.getCoordenadasClick()[3] - e.getCoordenadasClick()[2]) + "-" + e.getCoordenadasClick()[3],
                         (e.getCoordenadasClick()[1] - e.getCoordenadasClick()[0]) + "-" + e.getCoordenadasClick()[1],
@@ -279,6 +273,57 @@ public class MouseControl {
 
             }
         }
+    }
+
+    public static int tiempoTotal() {
+        int tiempoTotal = 0;
+        ListIterator<Click> clicks = conjuntoClicks.listIterator();
+        while (clicks.hasNext()) {
+            Click uno = clicks.next();
+            if (uno.isRandom()) {
+                tiempoTotal += uno.getRandomdos();
+            } else {
+                tiempoTotal += uno.getDuracionClick();
+            }
+        }
+        return tiempoTotal;
+    }
+
+    public static void realizarProgreso(int tiempoTotal, JProgressBar e) {
+        System.out.println();
+        int numAum = 100 / (tiempoTotal / 1000);
+        System.out.println(numAum);
+        Thread delayThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Robot e = new Robot();
+                    e.delay(1100);
+                } catch (AWTException ex) {
+
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                }
+
+            }
+        }, "Tiempo de espera");
+        Thread realizar = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (int i = 0; i < (tiempoTotal / 1000); i++) {
+                        e.setValue(e.getValue() + numAum);
+                        delayThread.run();
+                        System.out.println("Prueba + " + numAum + " " + i);
+                    }
+                    e.setValue(100);
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                }
+
+            }
+        }, "Hacer");
+        realizar.start();
     }
 
     public Thread getCopiaThread() {
